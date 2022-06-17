@@ -1,0 +1,129 @@
+! Xresources Configuration File
+! Modified and Merged
+! June 2022
+! 
+! After making changes to this file
+! use the following command to load those
+! changes
+!
+!               xrdb -merge ~/.Xresources
+!
+! To see the current settings use:
+!
+!               xrdb -query -all
+!
+
+Xft.dpi:                        96
+Xft.antialias:                  1
+Xft.autohint:                   1
+Xft.hinting:                    true
+Xft.hintstyle:                  hintslight
+Xft.rgba:                       rgb
+Xft.lcdfilter:                  lcddefault
+
+! Font definitions from CTT
+
+! #define FONT Fira Code
+! #define ICON FiraCode Nerd Font Mono
+! #define EMOJI Noto Color Emoji
+! #define NERD_FONT Font Awesome 5 Free Solid
+!Font Awesome 5 Brands
+! #define FONT_SIZE 9
+! #define ICON_SIZE 9
+! #define EMOJI_SIZE 9
+! #define NERD_SIZE 9
+
+!Colors
+#include ".Xnord"
+
+! Configuration for URxvt
+URxvt.depth:                    32
+URxvt*lineSpace:                0
+URxvt*letterSpace:                      -1
+URxvt.iso14755:                 false
+URxvt.iso14755_52:              false
+URxvt*geometry:                 184x44
+URxvt.scrollBar:                false
+URxvt*loginShell:               true
+URxvt.internalBorder:           88
+
+URxvt.perl-ext:                         default,matcher,resize-font
+URxvt.url-launcher:             linkhandler
+URxvt.matcher.button:               1
+URxvt.keysym.M-r:                   perl:matcher:last
+URxvt.keysym.M-l:                   perl:matcher:list
+URxvt.keysym.M-e:                       perl:matcher:select
+URxvt.saveLine:                         10000
+URxvt.cursorBlink:                      true
+URxvt.cursorUnderline:              true
+
+URxvt*inheritPixmap:                false
+URxvt*transparent:                  false
+
+! do not scroll with output
+URxvt*scrollTtyOutput:          false
+
+! scroll in relation to buffer (with mouse scroll or Shift+Page Up)
+URxvt*scrollWithBuffer:         true
+
+! scroll back to the bottom on keypress
+URxvt*scrollTtyKeypress:        true
+
+! Resize font keybindings
+URxvt.keysym.C-minus:           resize-font:smaller
+URxvt.keysym.C-plus:            resize-font:bigger
+URxvt.keysym.C-equal:           resize-font:reset
+URxvt.keysym.C-question:        resize-font:show
+URxvt.resize-font.step:         0.5
+
+! scroll by single line
+URxvt.keysym.Shift-Up:          command:\033]720;1\007
+URxvt.keysym.Shift-Down:        command:\033]721;1\007
+
+! Helps with man/less/pagers
+URxvt.secondaryScreen:          1
+URxvt.secondaryScroll:          0
+URxvt.secondaryWheel:           1
+
+! Change keybinding for copying/pasting
+! URxvt.keysym.Control-Meta-c: builtin-string:
+! URxvt.keysym.Control-Meta-v: builtin-string:
+! URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Super-V: eval:paste_clipboard
+! URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+URxvt.keysym.Super-C: eval:selection_to_clipboard
+
+URxvt.font:xft:Monospace:pixelsize=15
+URxvt.boldfont:xft:Monospace-Bold:pixelsize=15
+
+! Configuration Parameters for XTerm
+
+xterm*faceName: Monospace Regular
+xterm*faceSize: 10
+! Scrollbar on Right please :)
+xterm*rightScrollBar: true
+xterm*ScrollBar: true
+! stop output to terminal from jumping down to bottom of scroll again
+xterm*scrollTtyOutput: false
+*VT100.Translations: #override \n\
+                    Shift <Key>Up:              scroll-back(1) \n\
+                    Shift <Key>Down:            scroll-forw(1) \n\
+                    ~Alt Shift Ctrl <Key>V:     insert-selection(CLIPBOARD,CUT_BUFFER0) \n\
+                    Super <Key>V:               insert-selection(CLIPBOARD,CUT_BUFFER1) \n\
+                    ~Shift ~Ctrl ~Meta <Btn2Up>:insert-selection(PRIMARY,CUT_BUFFER0) \n\
+                    ~Shift <Btn1Up>:            select-end(PRIMARY,CUT_BUFFER0) \n\
+                    ~Alt Shift Ctrl <Key>C:     copy-selection(CLIPBOARD,CUT_BUFFER0) \n\
+                    Super <Key>C:               copy-selection(CLIPBOARD,CUT_BUFFER1)
+
+! See CHARACTER CLASSES section of xterm man page for details
+xterm*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
+! Alternate CHARACTER CLASS / taken from: https://github.com/tamsky/mac/blob/master/.Xresources
+! xterm*charClass: \
+!  33:48,36-38:48,43-47:48,58:48,61:48,63-64:48,126:48
+!   !    $ % &    +,-./    :     =     ? @      ~
+! Scrollback
+xterm*saveLines: 9000
+
+
+! Set Default Colors to White on Black
+
