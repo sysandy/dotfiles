@@ -1,0 +1,4 @@
+polybar|notice:  Parsing config file: /home/andym/.config/polybar/config.ini
+polybar|error: Uncaught exception, shutting down: /home/andym/.config/polybar/config.ini:330: Duplicate key name "format-background" defined in section "module/dunst"
+polybar|info:  Waiting for spawned processes to end
+polybar|info:  Reached end of application...

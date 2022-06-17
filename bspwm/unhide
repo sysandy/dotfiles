@@ -1,0 +1,20 @@
+#!/bin/bash
+
+unhide() {
+    action=${1:-list}
+    case $action in
+        "list")
+            selection=`for id in $(bspc query -N -n .hidden); do
+                title=$(xtitle $id)
+                [[ -z "$title" ]] && title="<unnamed>"
+                echo $id $title
+            done | rofi -dmenu -i -p "Hidden windows" | cut -f1 -d' '`
+            
+            [[ -z "$selection" ]] && exit 1
+
+            bspc node $selection -g hidden=off
+            ;;
+    esac
+}
+
+unhide $1
