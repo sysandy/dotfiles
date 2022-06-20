@@ -121,15 +121,23 @@ alt + {o,i}
 # focus or send to the given desktop
 alt + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
+# monitor 2
+# super + {_,shift + }{1-9,0}
+super + alt + {_,shift + } b; {1-9,0}
+	bspc {desktop -f,node -d} '^{11,12,13,14,15,16,17,18,19,20}'
+
+# focus or send to the given desktop (for multi monitors)
+#alt + {_,shift + } {1,2} ; {1-9,0}
+#bspc {desktop -f,node -d} "^{1,2,3}:^{1-9,10}"
 
 # cycle through the desktops
 #alt + Tab
 ctrl + Right
-	bspc desktop -f next
+	bspc desktop -f next.local
 
 #shift + alt + Tab
 ctrl + Left
-	bspc desktop -f prev
+	bspc desktop -f prev.local
 
 # Cycle through windows
 alt + Tab
