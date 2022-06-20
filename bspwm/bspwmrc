@@ -40,7 +40,9 @@ setxkbmap -layout us
 ##############################################################################
 # Monitor Config
 ##############################################################################
-bspc monitor -d 1 2 3 4 5 6 7 8 9 0
+bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 0
+bspc monitor HDMI-1 -d 11 12 13 14 15 16 17 18 19 20
+
 
 ##############################################################################
 # Main bspwm Config
@@ -100,6 +102,11 @@ nitrogen --restore &
 nm-applet &
 #xscreensaver &
 clipmenud &
+# Adjust monitor layout if secondary display connected
+if xrandr -q | grep -w connected | grep -q HDMI-1
+then
+	xrandr --output eDP-1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-1 --off --output HDMI-1 --mode 1920x1200 --pos 1920x0 --rotate normal --output DP-2 --off --output HDMI-2 --off
+fi
 
 # Move to Desktop 1
 # bspc desktop -f 1
