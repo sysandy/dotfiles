@@ -92,6 +92,7 @@ bspc config merge_overlapping_monitors true
 
 bspc rule -a "Cisco AnyConnect Secure Mobility Client" state=floating
 bspc rule -a "Pavucontrol" state=floating
+bspc rule -a "rdesktop" state=floating
 
 ##############################################################################
 # Auto-Start
