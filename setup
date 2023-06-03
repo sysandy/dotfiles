@@ -1,0 +1,169 @@
+:
+###############################################################################
+#
+# setup
+#
+# sets up enviornment for working shell session
+#
+# 20220505 -AM	     Minor fixes and additional cleanup
+# 20220618 -AM 	     Major cleanup and removal of am prefix
+# 20130920 -AM	     amsetualiases, amsetpath,amsetprompt all combined into amsetup
+###############################################################################
+echo 'Running setup ...'
+PLATFORM=`uname`
+ARCH=`uname -p`
+
+###############################################################################
+# Default file creation mode mask:  Allows group to read or execute, but not
+# to write.  Prevents everyone else from doing anything.
+###############################################################################
+#umask 077	# this is a bit restrictive
+
+###############################################################################
+# Don't bother checking for mail
+###############################################################################
+unset MAIL
+unset MAILCHECK
+
+###############################################################################
+# Tweaks to history and page display
+###############################################################################
+set -o vi		# Tells shell to use 'vi' style history redisplay.
+FCEDIT=vi		# Another way to do the same thing.
+HISTSIZE=1500		# How many command lines to save
+PAGER=less		# For man and other commands
+export EDITOR FCEDIT HISTSIZE VISUAL PAGER
+
+###############################################################################
+# Got vim?
+###############################################################################
+if [ -x /usr/local/bin/vim ] ; then
+	#EDITOR=/usr/local/bin/vim\ -X	
+	EDITOR=/usr/local/bin/vim
+elif [ -x /usr/bin/vim ] ; then
+	#EDITOR=/usr/bin/vim\ -X	
+	EDITOR=/usr/bin/vim
+else
+	EDITOR=vi
+fi
+VISUAL=$EDITOR
+
+###############################################################################
+# This changes the defaults for 'vi'.
+###############################################################################
+#EXINIT="set autoindent autoprint ignorecase redraw report=1 showmode mesg noterse optimize tabstop=3"
+#export EXINIT
+
+###############################################################################
+# Favorite aliases and Functions 
+###############################################################################
+alias vi="$EDITOR"
+alias c=clear
+function cdu { cd `show.home ${1:-${LOGNAME:-}}` ; }
+function pathmanip { pmanip ${1:-none} ${2:-after} && export PATH=`pmanip ${1:-none} ${2:-after}` ; }
+function addpath { 
+    	dir=$1; topath=$2; op=$3
+
+	if [[ -d $dir ]]
+	then
+		if [[ ":$PATH:" == *":$dir:"* ]]
+		then
+			echo "Directory $dir already in path, skipping"
+		else
+		    	if [[ $op = "before" ]]
+			then 
+				if [[ $topath == "PATH" ]]
+				then
+					[[ -z ${PATH} ]] && PATH=$dir
+					[[ ! -z ${PATH} ]] && PATH=$dir:$PATH
+				elif [[ $topath == "MANPATH" ]]
+				then	
+					[[ -z ${MANPATH} ]] && MANPATH=$dir
+					[[ ! -z ${MANPATH} ]] && MANPATH=$dir:$MANPATH
+				fi
+
+			elif [[ $op = "after" ]]
+			then
+				if [[ $topath == "PATH" ]]
+				then
+					[[ -z ${PATH} ]] && PATH=$dir
+                                        [[ ! -z ${PATH} ]] && PATH=$PATH:$dir
+				elif [[ $topath == "MANPATH" ]]
+				then
+					[[ -z ${MANPATH} ]] && MANPATH=$dir
+                                        [[ ! -z ${MANPATH} ]] && MANPATH=$MANPATH:$dir
+				fi
+
+				
+			fi
+		fi
+	fi
+}
+
+alias lo=logout
+alias n=nslookup
+alias ddir="ls -l | grep ^d | less"
+alias files="ls -l | grep ^- | less"
+alias cp='cp -i'
+alias rehash='set +h'
+
+###############################################################################
+# Sets up out PATHS	
+###############################################################################
+echo "Setting PATH ..."
+for d in /afs/malato/platform/local/scripts $HOME/bin
+do
+    	addpath $d PATH before
+done
+
+for d in /usr/local/bin /opt/local/bin /usr/afs/bin /usr/afsws/bin /usr/afsws/etc 
+
+do
+	addpath $d PATH after
+done
+
+
+echo "Setting MANPATH ..."
+for d in /opt/local/man /usr/local/man /usr/share/man /usr/man /usr/dt/man /usr/openv/man/share/man /usr/local/lib/perl5/man /usr/afsws/man
+do
+
+	addpath $d MANPATH after
+done
+
+export PATH MANPATH
+
+###############################################################################
+# Sets up prompt 
+###############################################################################
+echo "Setting Prompt ..."
+
+NODENAME=`uname -n | sed 's/\..*$//'`
+export NODENAME
+
+
+###############################################################################
+# Actual setting of prompts
+################################################################################
+MYPWD=`basename $PWD`
+#PS1="$fore${LOGNAME:-?}@${NODENAME:-?}$mid \$PWD$stat$aft
+#PS1="${NODENAME:-?}-\! \$PWD$stat$aft
+#PS1="${NODENAME:-?}-\! \$PWD
+PS1="${NODENAME:-?}-\! \W:> "
+#\$>: "
+PS2=" > "
+PS3=" -> "
+PS4=" #-> "
+#export PS1 PS2 PS3 PS4 CheckTokensMsg
+export PS1 PS2 PS3 PS4 CheckTokensMsg
+PROMPT_COMMAND=set-prompt
+	
+###############################################################################
+# Clear unneeded vars
+################################################################################
+unset d f F E G R C fore aft mid bold stat
+
+
+###############################################################################
+# Display banner of hostname
+################################################################################
+[[ -x ~/bin/welcome.banner ]] && welcome.banner
