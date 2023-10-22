@@ -70,3 +70,12 @@ if &t_Co > 2 || has("gui_running")
   let c_comment_strings=1
   set hlsearch
 endif
+
+" Added for clrzr
+" sets foreground color (ANSI, true-color mode)
+  let &t_8f = "\e[38;2;%lu;%lu;%lum"
+
+  " sets background color (ANSI, true-color mode)
+  let &t_8b = "\e[48;2;%lu;%lu;%lum"
+
+  set termguicolors

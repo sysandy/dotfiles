@@ -38,6 +38,10 @@ super + shift + c
 super + shift + x
 	/usr/bin/kitty
 
+# kitty terminal in white
+super + ctrl + w 
+	~/bin/kitty.wrapper white black
+
 # Start a filemanager
 super + shift + f
 	thunar
@@ -47,6 +51,12 @@ super + shift + 3
         flameshot launcher
 super + shift + 5
         flameshot gui
+super + shift + 4
+	shutter -s -o ~/screenshots/screenshot_%Y%m%d_%T.png
+# RDP Selection
+super + shift + w
+	~/bin/rdpconnect
+
 ##############################################################################
 # bspwm hotkeys
 ##############################################################################
@@ -85,6 +95,10 @@ super + alt + f
 super + alt + t
 	bspc node -t tiled
 
+# set a window state to fullscreen
+super + alt + shift + f
+	bspc node -t fullscreen
+
 # alternate between the tiled and monocle layout
 super + alt + m
 	bspc desktop -l next
@@ -99,11 +113,15 @@ super + alt + m
 
 # Move the node in the given direction
 alt + {Up,Down,Right,Left}
-        bspc node -s {north,south,east,west}
+        bspc node -s {north,south,east,west}.local
 
 # Flip the tree horitonally from the current window's parent
 super + alt + {Right,Left}
 	bspc node @parent -F {vertical,vertical}
+
+# Toggle between horizontal and vertical split
+super + alt + z
+	bspc node @parent -R 90
 
 # set the window state / stolen from arcolinux config
 alt + space
@@ -149,9 +167,61 @@ super + alt + {_,shift + } c; {1-9,0}
 super + alt + {_,shift + } d; {1-9,0}
 	bspc {desktop -f,node -d} '^{31,32,33,34,35,36,37,38,39,40}'
 
+
+# shortcuts to select desktop via Function keys
+
+F1 
+	bspc desktop -f 31
+F2
+	bspc desktop -f 32
+F3
+	bspc desktop -f 33
+F5
+	bspc desktop -f 11 
+F6
+	bspc desktop -f 12
+F7
+	bspc desktop -f 13
+F8
+	bspc desktop -f 14
+F9
+	bspc desktop -f 1
+F10
+	bspc desktop -f 2
+F11
+	bspc desktop -f 3
+F12
+	bspc desktop -f 4
+Print
+	bspc desktop -f 21
+Scroll_Lock
+	bspc desktop -f 22
+Pause
+	bspc desktop -f 23
+
 # focus or send to the given desktop (for multi monitors)
 #alt + {_,shift + } {1,2} ; {1-9,0}
 #bspc {desktop -f,node -d} "^{1,2,3}:^{1-9,10}"
+
+# focus each monitor 
+# monitor list from output of
+# bspc query --monitors
+
+#0x00200012 Top Left
+super + 1
+        ~/.config/bspwm/sxhkd/focus.sh 1
+
+#0x00200020 Bottom Left
+super + 2 	
+        ~/.config/bspwm/sxhkd/focus.sh 2
+
+#0x0020002E Center
+super + 3 
+        ~/.config/bspwm/sxhkd/focus.sh 3
+
+#0x00200039 Right
+super + 4
+        ~/.config/bspwm/sxhkd/focus.sh 4
 
 # cycle through the desktops
 #alt + Tab
