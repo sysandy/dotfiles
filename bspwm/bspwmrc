@@ -44,6 +44,10 @@ setxkbmap -layout us
 bspc monitor HDMI-1 -d 1 2 3 4 5 6 7 8 9 0
 #bspc monitor HDMI-1 -d 11 12 13 14 15 16 17 18 19 20
 bspc monitor DP-2 -d 11 12 13 14 15 16 17 18 19 20
+#bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10
+#bspc monitor HDMI-1 -d 11 12 13 14 15 16 17 18 19 20
+
+>>>>>>> 0fb04d7e52bd70a16ce7c97ad45e4a106a4cfe02
 
 ##############################################################################
 # Main bspwm Config
@@ -93,8 +97,8 @@ bspc config merge_overlapping_monitors true
 
 bspc rule -a "Cisco AnyConnect Secure Mobility Client" state=floating
 bspc rule -a "Pavucontrol" state=floating
-bspc rule -a "rdesktop" state=floating
 bspc rule -a "feh" state=floating
+bspc rule -a "rdesktop" state=floating desktop=3
 
 ##############################################################################
 # Auto-Start
@@ -103,6 +107,7 @@ lxpolkit &
 picom --config "$HOME/.config/bspwm/picom.conf" &
 nitrogen --restore &
 nm-applet &
+blueman-applet &
 #xscreensaver &
 clipmenud &
 # Adjust monitor layout if secondary display connected
