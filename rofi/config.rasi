@@ -8,4 +8,13 @@ configuration {
   display-combi: "  ";
 }
 //@theme "themes/sidetab-nord.rasi"
-@theme "/home/andym/.config/rofi/themes/nord.rasi"
+//@theme "/home/andym/.config/rofi/themes/nord.rasi"
+//@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+//@theme "/usr/share/rofi/themes/Pop-Dark.rasi"
+//@theme "/usr/share/rofi/themes/Monokai.rasi"
+//@theme "/home/andym/.config/rofi/themes/beach.rasi"
+//@theme "/home/andym/.config/rofi/themes/nord.rasi"
+//@theme "/home/andym/.config/rofi/themes/onedark.rasi"
+//@theme "/usr/share/rofi/themes/Monokai.rasi"
+//@theme "/home/andym/.config/rofi/themes/nord.rasi"
+@theme "/home/andym/.config/rofi/themes/breeze-dark.rasi"

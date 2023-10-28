@@ -34,7 +34,11 @@ super + Escape
 # My program Hotkeys
 super + shift + c
         /opt/google/chrome/google-chrome
+# Brave
+super + shift + b
+        /opt/brave.com/brave/brave-browser
 	
+# Kitty
 super + shift + x
 	/usr/bin/kitty
 
