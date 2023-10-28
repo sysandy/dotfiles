@@ -150,6 +150,7 @@ super + {grave,Tab}
 #	bspc wm -h on
 
 # focus or send to the given desktop
+# Monitor 1
 super + alt + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 # monitor 2
@@ -307,11 +308,11 @@ alt + ctrl + l
 # volume control
 ##############################################################################
 XF86AudioLowerVolume
-	pamixer -d 5
+	pactl set-sink-volume @DEFAULT_SINK@ -5%
 XF86AudioRaiseVolume
-	pamixer -i 5
+	pactl set-sink-volume @DEFAULT_SINK@ +5%
 XF86AudioMute
-        ~/.config/bspwm/sxhkd/mute.sh
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 ##############################################################################
 # Backlight Display Control
