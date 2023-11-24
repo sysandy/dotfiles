@@ -1,11 +1,11 @@
 :
 ###############################################################################
 #
-# setup
+# .amsetup.sh
 #
-# sets up enviornment for working shell session
+# Critical stuff I just gotta have in shell sessions under any login.
+# Partly functional with ash/sh/xsh; fully with bash/ksh
 #
-# 20220505 -AM	     Minor fixes and additional cleanup
 # 20220618 -AM 	     Major cleanup and removal of am prefix
 # 20130920 -AM	     amsetualiases, amsetpath,amsetprompt all combined into amsetup
 ###############################################################################
@@ -156,6 +156,11 @@ PS4=" #-> "
 #export PS1 PS2 PS3 PS4 CheckTokensMsg
 export PS1 PS2 PS3 PS4 CheckTokensMsg
 PROMPT_COMMAND=set-prompt
+
+###############################################################################
+# For autojump
+###############################################################################
+[ -f /etc/profile.d/autojump.sh ] && source /etc/profile.d/autojump.sh
 	
 ###############################################################################
 # Clear unneeded vars
@@ -166,4 +171,4 @@ unset d f F E G R C fore aft mid bold stat
 ###############################################################################
 # Display banner of hostname
 ################################################################################
-[[ -x ~/bin/welcome.banner ]] && welcome.banner
+welcome.banner
