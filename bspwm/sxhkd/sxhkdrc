@@ -11,6 +11,7 @@
 alt + x
 	~/bin/xterm.wrapper
 
+
 # program launcher
 super + shift + r
 	rofi -show drun
@@ -25,7 +26,11 @@ super + shift + p
 
 # emoji picker
 super + shift + e
-	rofimoji
+	/home/andym/.local/bin/rofimoji
+
+# Audio Controls
+super + p
+        ~/bin/pavucontrol.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -49,17 +54,23 @@ super + ctrl + w
 # Start a filemanager
 super + shift + f
 	thunar
-		
+# Keepass Manager
+super + k
+	~/bin/keepass.sh
 # Screenshot tool
 super + shift + 3
         flameshot launcher
 super + shift + 5
-        flameshot gui
-super + shift + 4
-	shutter -s -o ~/screenshots/screenshot_%Y%m%d_%T.png
+        ~/bin/screenshot.sh
+#super + shift + 4
+#	shutter -s -o ~/screenshots/screenshot_%Y%m%d_%T.png
 # RDP Selection
 super + shift + w
 	~/bin/rdpconnect
+
+# Hotkey to fix desktop ordering
+alt + f 
+        ~/bin/bspwm.set.desktop.order.sh
 
 ##############################################################################
 # bspwm hotkeys
@@ -71,7 +82,7 @@ super + alt + {q,r}
 
 # close and kill
 super + alt + BackSpace
-	bspc node -{c,k}
+	bspc node -c
 
 
 # send the newest marked node to the newest preselected node
@@ -147,15 +158,9 @@ alt + bracket{left,right}
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
-# focus the older or newer node in the focus history
-#alt + {o,i}
-#	bspc wm -h off; \
-#	bspc node {older,newer} -f; \
-#	bspc wm -h on
-
 # focus or send to the given desktop
 # Monitor 1
-super + alt + {_,shift + }{1-9,0}
+super + alt + {_,shift + } {1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 # monitor 2
 # super + {_,shift + }{1-9,0}
@@ -171,6 +176,9 @@ super + alt + {_,shift + } c; {1-9,0}
 # super + {_,shift + }{1-9,0}
 super + alt + {_,shift + } d; {1-9,0}
 	bspc {desktop -f,node -d} '^{31,32,33,34,35,36,37,38,39,40}'
+
+super + alt + {_,shift + } e; {1-9,0}
+	bspc {desktop -f,node -d} '^{41,42,43,44,45,46,47,48,49,50}'
 
 
 # shortcuts to select desktop via Function keys
@@ -212,21 +220,25 @@ Pause
 # monitor list from output of
 # bspc query --monitors
 
-#0x00200012 Top Left
+#0x0040004A Main Center Monitor -- "The Big Guy!"
 super + 1
         ~/.config/bspwm/sxhkd/focus.sh 1
 
-#0x00200020 Bottom Left
+#0x00400048 Bottom Left
 super + 2 	
         ~/.config/bspwm/sxhkd/focus.sh 2
 
-#0x0020002E Center
+#0x00400016 Top Left
 super + 3 
         ~/.config/bspwm/sxhkd/focus.sh 3
 
-#0x00200039 Right
+#0x0040003A Top Right
 super + 4
         ~/.config/bspwm/sxhkd/focus.sh 4
+
+#0x0040003A Bottom Right
+super + 5
+        ~/.config/bspwm/sxhkd/focus.sh 5
 
 # cycle through the desktops
 #alt + Tab
@@ -293,19 +305,24 @@ super + {Left,Down,Up,Right}
 #ctrl + shift + {h,j,k,l}
 #	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
+# Not used -- Disabling to reuse bindkeys elsewhere
+# 20250308
 # i3 like resizing
-alt + h
-    ~/.config/bspwm/resize/shrinkx.sh
-alt + l
-    ~/.config/bspwm/resize/expandx.sh
-alt + k
-    ~/.config/bspwm/resize/shrinky.sh
-alt + j
-    ~/.config/bspwm/resize/expandy.sh
+#alt + h
+#    ~/.config/bspwm/resize/shrinkx.sh
+#alt + l
+#    ~/.config/bspwm/resize/expandx.sh
+#alt + k
+#    ~/.config/bspwm/resize/shrinky.sh
+#alt + j
+#    ~/.config/bspwm/resize/expandy.sh
 ##############################################################################
 # Screen lock
 ##############################################################################
 alt + ctrl + l 
+	xscreensaver-command --lock && ~/.config/bspwm/sxhkd/dpms.sh
+
+XF86Launch7
 	xscreensaver-command --lock && ~/.config/bspwm/sxhkd/dpms.sh
 	
 ##############################################################################
@@ -318,6 +335,21 @@ XF86AudioRaiseVolume
 XF86AudioMute
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+##############################################################################
+# Audio Device Selection
+##############################################################################
+# Speakers
+super + s
+	~/bin/audioctl speakers
+# Headphones (Wired earbuds)
+super + h
+	~/bin/audioctl headphones
+# Earbuds
+super + b 
+        ~/bin/audioctl buds
+# Disconnect wireless buds
+super + d 
+        ~/bin/budsctl disconnect
 ##############################################################################
 # Backlight Display Control
 ##############################################################################
