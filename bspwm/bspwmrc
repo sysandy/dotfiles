@@ -38,14 +38,17 @@ xsetroot -cursor_name left_ptr
 setxkbmap -layout us
 
 ##############################################################################
-# Monitor Config
+# Monitor Config -- This needs to be moved AFTER the xrandr config because it is causing issues
 ##############################################################################
-#bspc monitor DP-2 -d 1 2 3 4 5 6 7 8 9 0
-bspc monitor HDMI-1 -d 1 2 3 4 5 6 7 8 9 0
-#bspc monitor HDMI-1 -d 11 12 13 14 15 16 17 18 19 20
-bspc monitor DP-2 -d 11 12 13 14 15 16 17 18 19 20
-#bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10
-#bspc monitor HDMI-1 -d 11 12 13 14 15 16 17 18 19 20
+# Set the display order
+#bspc wm -O DisplayPort-3 DisplayPort-4 DisplayPort-5 DisplayPort-1-1 DisplayPort-1-0
+#bspc monitor DisplayPort-3 -d 1 2 3 4 5 6 7 8 9 0
+#bspc monitor DisplayPort-4 -d 11 12 13 14 15 16 17 18 19 20
+#bspc monitor DisplayPort-5 -d 21 22 23 24 25 26 27 28 29 30
+##bspc monitor DisplayPort-1-0 -d 36 37 38 39 40
+##bspc monitor DisplayPort-1-1 -d 31 32 33 34 35 
+#bspc monitor DisplayPort-1-1 -d 31 32 33 34 35 36 37 38 39 40
+#bspc monitor DisplayPort-1-0 -d 41 42 43 44 45 46 47 48 49 50
 
 ##############################################################################
 # Main bspwm Config
@@ -93,10 +96,12 @@ bspc config merge_overlapping_monitors true
 #bspc rule -a Discord desktop='^6'
 #bspc rule -a synergy desktop='^9'
 
+bspc rule -a "Brave-browser" desktop='^4' follow=on
 bspc rule -a "Cisco AnyConnect Secure Mobility Client" state=floating
-bspc rule -a "Pavucontrol" state=floating
+bspc rule -a "Pavucontrol" state=floating desktop='^31'
+bspc rule -a "rdesktop" state=floating
 bspc rule -a "feh" state=floating
-bspc rule -a "rdesktop" state=floating desktop=3
+bspc rule -a "KeePassXC" state=floating desktop='^21'
 
 ##############################################################################
 # Auto-Start
@@ -105,11 +110,20 @@ lxpolkit &
 picom --config "$HOME/.config/bspwm/picom.conf" &
 nitrogen --restore &
 nm-applet &
-blueman-applet &
-#xscreensaver &
+xscreensaver &
 clipmenud &
-# Adjust monitor layout if secondary display connected
-xrandr --output DP-2 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output DP-2 --off --output HDMI-1 --mode 1920x1200 --pos 1920x0 --rotate normal --output DP-1 --off --output HDMI-2 --off
+blueman-applet &
+xrandr --output DisplayPort-3 --primary --mode 3840x2160 --pos 3840x1031 --rotate normal --output DisplayPort-4 --mode 3840x2160 --pos 0x2160 --rotate normal --output DisplayPort-5 --mode 3840x2160 --pos 0x0 --rotate normal --output HDMI-A-1 --off --output DisplayPort-1-0 --mode 3840x2160 --pos 7680x2160 --rotate normal --output DisplayPort-1-1 --mode 3840x2160 --pos 7680x0 --rotate normal --output DisplayPort-1-2 --off --output HDMI-A-1-0 --off
 
+##############################################################################
+# Monitor Config -- This needs to come AFTER the xrandr config 
+##############################################################################
+# Set the display order
+bspc wm -O DisplayPort-3 DisplayPort-4 DisplayPort-5 DisplayPort-1-1 DisplayPort-1-0
+bspc monitor DisplayPort-3 -d 1 2 3 4 5 6 7 8 9 0
+bspc monitor DisplayPort-4 -d 11 12 13 14 15 16 17 18 19 20
+bspc monitor DisplayPort-5 -d 21 22 23 24 25 26 27 28 29 30
+bspc monitor DisplayPort-1-1 -d 31 32 33 34 35 36 37 38 39 40
+bspc monitor DisplayPort-1-0 -d 41 42 43 44 45 46 47 48 49 50
 # Move to Desktop 1
 # bspc desktop -f 1
