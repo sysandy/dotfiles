@@ -5,7 +5,7 @@ unhide() {
     case $action in
         "list")
             selection=`for id in $(bspc query -N -n .hidden); do
-                title=$(xtitle $id)
+                title=$(~/bin/xtitle $id)
                 [[ -z "$title" ]] && title="<unnamed>"
                 echo $id $title
             done | rofi -dmenu -i -p "Hidden windows" | cut -f1 -d' '`
