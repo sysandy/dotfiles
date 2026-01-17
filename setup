@@ -32,7 +32,10 @@ set -o vi		# Tells shell to use 'vi' style history redisplay.
 FCEDIT=vi		# Another way to do the same thing.
 HISTSIZE=1500		# How many command lines to save
 PAGER=less		# For man and other commands
-export EDITOR FCEDIT HISTSIZE VISUAL PAGER
+XCURSOR_SIZE=24		# Fix for cursor ?
+QT_FONT_DPI=125		# For QT Apps, specifically KeepassXC
+GDK_SCALE=2		# For GTK Apps
+export EDITOR FCEDIT HISTSIZE VISUAL PAGER XCURSOR_SIZE QT_FONT_DPI GDK_SCALE
 
 ###############################################################################
 # Got vim?
@@ -108,19 +111,19 @@ alias cp='cp -i'
 alias rehash='set +h'
 
 ###############################################################################
-# Sets up out PATHS	
+# Sets up our PATHS	
 ###############################################################################
 echo "Setting PATH ..."
-for d in /afs/malato/platform/local/scripts $HOME/bin
+for d in $HOME/bin
 do
     	addpath $d PATH before
 done
-
-for d in /usr/local/bin /opt/local/bin /usr/afs/bin /usr/afsws/bin /usr/afsws/etc 
+for d in /usr/local/bin /opt/local/bin /usr/afs/bin /usr/afsws/bin /usr/afsws/etc /afs/malato/platform/local/scripts
 
 do
 	addpath $d PATH after
 done
+
 
 
 echo "Setting MANPATH ..."
