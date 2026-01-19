@@ -12,9 +12,6 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 #(sleep 2; polybar bar) &
 #(sleep 2; polybar -c /home/andym/.config/bspwm/polybar/config.ini) &
 (sleep 2; polybar -c /home/andym/.config/bspwm/polybar/config.ini primary) &
-(sleep 2; polybar -c /home/andym/.config/bspwm/polybar/config.ini secondary) &
-(sleep 2; polybar -c /home/andym/.config/bspwm/polybar/config.ini tertiary) &
-(sleep 2; polybar -c /home/andym/.config/bspwm/polybar/config.ini quaternary) &
 
 # see if we have our second monitor connected, if so launch secondary bar
 #if xrandr -q | grep -w connected | grep -q HDMI-1
